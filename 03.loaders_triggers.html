@@ -1,0 +1,36 @@
+<!-- Paste this snippet at the end of the </head> block -->
+<script type="text/javascript">
+
+  // you can remove or add links here to load Crisp only on specific pages
+  var pages = [
+    "http://caligrafik.ro/caricaturi-personalizate-la-comanda/",
+    "http://caligrafik.ro/caricaturist-evenimente/",
+    "http://caligrafik.ro/caricaturist-nunta/",
+    "http://caligrafik.ro/contact/",
+    "http://caligrafik.ro/helpdesk/",
+    "http://caligrafik.ro/",
+    "http://caligrafik.ro/picturi-tablouri-comanda/",
+    "http://caligrafik.ro/portofoliu/",
+    "http://caligrafik.ro/portrete-personalizate-la-comanda/"
+  ];
+
+  // hide the crisp chatbox
+  var crisp = document.querySelector(".crisp-client");
+  crisp.style.display = 'none';
+
+  for (var i = 0; i < pages.length; i++) {
+    if(window.location.href.indexOf(pages[i]) > -1) {
+
+      crisp.style.display = 'block';
+
+      // trigger the livechat after X seconds
+      var seconds = 60;
+
+      window.setTimeout(function() {
+        $crisp.do('chat:open');
+      }, seconds * 1000);
+
+    }
+  }
+
+</script>
