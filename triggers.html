@@ -1,0 +1,12 @@
+// Paste this snippet inside your header or before the end of your footer
+// This will trigger the chatbox after a certain time
+
+<script type="text/javascript">
+
+  // trigger the livechat after X seconds
+  seconds = 60;
+
+  window.setTimeout(function() {
+    $crisp.do('chat:open');
+  }, seconds * 1000);
+</script>
