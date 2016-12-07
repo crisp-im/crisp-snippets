@@ -1,0 +1,51 @@
+<script type="text/javascript">
+
+$crisp.on("chat:initiated", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'chat:initiated',
+	  eventLabel: 'Chat Initiated'
+	});
+});
+$crisp.on("chat:opened", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'chat:opened',
+	  eventLabel: 'Chat Opened'
+	});
+});
+$crisp.on("chat:closed", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'chat:closed',
+	  eventLabel: 'Chat Closed'
+	});
+});
+$crisp.on("message:sent", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'message:sent',
+	  eventLabel: 'Message Sent'
+	});
+});
+$crisp.on("message:received", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'message:received',
+	  eventLabel: 'Message Received'
+	});
+});
+$crisp.on("user:email:changed", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'user:email:changed',
+	  eventLabel: 'Email Changed'
+	});
+});
+</script>
