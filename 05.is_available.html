@@ -1,0 +1,47 @@
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">$crisp=[];CRISP_WEBSITE_ID="YOUR_CODE";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<style>
+.availability {
+	width: 20px;
+	height: 20px;
+	border-radius: 40px;
+	display: block;
+}
+
+.available {
+	background: green;
+}
+
+.unavailable {
+	background: grey;
+}
+
+</style>
+</head>
+<body>
+
+<span class="availability unavailable"></span>
+
+<script>
+$crisp.push(["on", "session:loaded", function() {
+	update_availability($crisp.is("website:available"));
+}]);
+
+$crisp.push(["on", "website:availability:changed", update_availability]);
+
+
+function update_availability(is_available) {
+	if (is_available) {
+		$(".availability").removeClass("unavailable");
+		$(".availability").addClass("available");
+	} else {
+		$(".availability").removeClass("available");
+		$(".availability").addClass("unavailable");
+	}
+}
+</script>
+
+</body>
+</html>
