@@ -1,53 +1,51 @@
 <script type="text/javascript">
-window.CRISP_READY_TRIGGER = function() {
-	$crisp.on("chat:initiated", function(){
-		ga('send', {
-		  hitType: 'event',
-		  eventCategory: 'Crisp',
-		  eventAction: 'chat:initiated',
-		  eventLabel: 'Chat Initiated'
-		});
+$crisp.push(["on", "chat:initiated", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'chat:initiated',
+	  eventLabel: 'Chat Initiated'
 	});
-	$crisp.on("chat:opened", function(){
-		ga('send', {
-		  hitType: 'event',
-		  eventCategory: 'Crisp',
-		  eventAction: 'chat:opened',
-		  eventLabel: 'Chat Opened'
-		});
+}]);
+$crisp.push(["on", "chat:opened", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'chat:opened',
+	  eventLabel: 'Chat Opened'
 	});
-	$crisp.on("chat:closed", function(){
-		ga('send', {
-		  hitType: 'event',
-		  eventCategory: 'Crisp',
-		  eventAction: 'chat:closed',
-		  eventLabel: 'Chat Closed'
-		});
+}]);
+$crisp.push(["on", "chat:closed", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'chat:closed',
+	  eventLabel: 'Chat Closed'
 	});
-	$crisp.on("message:sent", function(){
-		console.log("send");
-		ga('send', {
-		  hitType: 'event',
-		  eventCategory: 'Crisp',
-		  eventAction: 'message:sent',
-		  eventLabel: 'Message Sent'
-		});
+}]);
+$crisp.push(["on", "message:sent", function(){
+	console.log("send");
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'message:sent',
+	  eventLabel: 'Message Sent'
 	});
-	$crisp.on("message:received", function(){
-		ga('send', {
-		  hitType: 'event',
-		  eventCategory: 'Crisp',
-		  eventAction: 'message:received',
-		  eventLabel: 'Message Received'
-		});
+}]);
+$crisp.push(["on", "message:received", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'message:received',
+	  eventLabel: 'Message Received'
 	});
-	$crisp.on("user:email:changed", function(){
-		ga('send', {
-		  hitType: 'event',
-		  eventCategory: 'Crisp',
-		  eventAction: 'user:email:changed',
-		  eventLabel: 'Email Changed'
-		});
+}]);
+$crisp.push(["on", "user:email:changed", function(){
+	ga('send', {
+	  hitType: 'event',
+	  eventCategory: 'Crisp',
+	  eventAction: 'user:email:changed',
+	  eventLabel: 'Email Changed'
 	});
-};
+}]);
 </script>
