@@ -1,0 +1,44 @@
+<script>
+var departments = ["sales", "tech"]
+
+var greetings = {
+	sales : "Thank your for contecting our Sales Department. An agent will reply soon",
+	tech : "Thank your for contecting our Tech Department. An agent will reply soon"
+}
+
+if (!localStorage.getItem("crisp-routing")) {
+	$crisp.push(["do", "message:show", ["picker", {
+	    "id": "routing",
+	    "text": "What is your questions about?",
+	    "choices": [{
+	        "value": "sales",
+	        "label": "Sales",
+	        "selected": false
+	    }, {
+	        "value": "tech",
+	        "label": "Tech",
+	        "selected": false
+	    }]
+	}]])
+}
+
+$crisp.push(["on", "message:received", function(data) {
+	if (data.origin !== "update") {
+		return;
+	}
+
+	if (!data.content.choices) {
+		return;
+	}
+
+	for (var index in data.content.choices) {
+		var current = data.content.choices[index];
+		if (current.selected && departments[current.value] !== -1) {
+			$crisp.push(["set", "session:segments", [[current.value]]]);
+			$crisp.push(["do", "message:show", ["text", greetings[current.value]]]);
+			localStorage.setItem("crisp-routing", "true");
+			return;
+		}
+	}
+}])
+</script>
