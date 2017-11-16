@@ -31,6 +31,10 @@ $crisp.push(["on", "message:received", function(data) {
 		return;
 	}
 
+	if (localStorage.getItem("crisp-routing")) {
+		return;
+	}
+
 	for (var index in data.content.choices) {
 		var current = data.content.choices[index];
 		if (current.selected && departments[current.value] !== -1) {
