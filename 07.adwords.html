@@ -1,0 +1,16 @@
+<script type="text/javascript">
+$crisp.push(["on", "session:loaded", function() {
+	// Set as Adwords visitor when GCLID isset
+	if(($crisp.get("session:data", "adwords") === null) && (window.location.href.indexOf("gclid") > -1)) {
+		$crisp.push(["set", "session:data", [[["adwords", "visitor"]]]]);
+	}
+
+	$crisp.push(["on", "message:sent", function(message) {
+		if ($crisp.get("session:data", "adwords") === "visitor") {
+			$crisp.push(["set", "session:data", [[["adwords", "conversion"]]]]);
+			gtag('event', 'conversion', {'send_to': 'AW-999999999/HO-xxxxx-XXXXXXXXXX'});
+		}
+	}]);
+}]);
+
+</script>
