@@ -5,3 +5,5 @@
 * [If you want to trigger Crisp after X seconds](https://github.com/crisp-im/crisp-snippets/blob/master/02.triggers.html).
 
 * [If you want to load Crisp only on specific pages and trigger the livechat after X seconds](https://github.com/crisp-im/crisp-snippets/blob/master/03.loaders_triggers.html).
+
+* [If you want to restore multiple conversations for authenticated users](https://github.com/crisp-im/crisp-snippets/blob/master/08.crisp-multi.html).
