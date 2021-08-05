@@ -1,0 +1,120 @@
+<!-- 
+  This snippet can be used to restore multiple conversations for authenticated users only. You will need to create 3 UUID tokens for each user and store this in your backend.
+  You need to replace the CRISP_WESIDE_ID with your website_Id (Found in: Settings > Website Settings > (select website) > Setup Instructions)
+ -->
+
+<script>
+  // Parse three tokens as strings, for each user to the crispTokens array below! see https://help.crisp.chat/en/article/how-to-restore-chat-sessions-with-a-token-c32v4t/ for information on tokens. These are example tokens
+  let crispTokens = [];
+
+  let button = [];
+  let topicSel = 1;
+  let crisp_email = null;
+
+  window.$crisp = [];
+  $crisp.push(["do", "session:reset", [false]]);
+  window.CRISP_TOKEN_ID = crispTokens[0];
+  // ----------ADD YOUR WEBSITE ID HERE -------------
+  window.CRISP_WEBSITE_ID = "WEBSITE_ID";
+  (function () {
+    d = document;
+    s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 0;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+
+  function loadTopic(topic) {
+    CRISP_TOKEN_ID = `${crispTokens[topic - 1]}`;
+    topicSel = topic;
+    crisp_email = $crisp.get("user:email");
+    $crisp.push(["do", "session:reset"]);
+  }
+
+  function addTopics() {
+    is_email = $crisp.get("user:email");
+    if (!is_email && crisp_email) {
+      $crisp.push(["set", "user:email", crisp_email]);
+    }
+
+    client = document.getElementsByClassName("cc-1ada")[0];
+    colourStyle = getComputedStyle(client).backgroundColor;
+    box = document.getElementsByClassName("cc-qqzz")[0];
+    box.setAttribute("id", "box");
+    boxHeight = box.style.height;
+    messages = document.getElementsByClassName("cc-1yfu cc-1lut");
+
+    chatbox = document.getElementsByClassName("cc-ge4v");
+    TooltipWrapper = document.createElement("div");
+    TooltipWrapper.setAttribute("class", "tooltipWrapper");
+    chatbox[0].appendChild(TooltipWrapper);
+
+    topicsTooltip = document.createElement("div");
+    topicsTooltip.setAttribute("class", "topicsTooltip");
+    topicsTooltip.innerHTML = "Hover mouse here!";
+    TooltipWrapper.appendChild(topicsTooltip);
+
+    topics = document.createElement("div");
+    topics.setAttribute("class", "topicsWrapper");
+    topics.style.setProperty("background-color", colourStyle, "important");
+    chatbox[0].appendChild(topics);
+
+    topics.onmouseover = function () {
+      height = boxHeight.slice(0, -2);
+      box.style.setProperty("height", `${height - 35}px`, "important");
+      TooltipWrapper.style.setProperty("display", "none", "important");
+    };
+    topics.onmouseout = function () {
+      box.style.setProperty("height", boxHeight, "important");
+    };
+
+    buttonWrapper = document.createElement("div");
+    buttonWrapper.setAttribute("class", "buttonWrapper");
+    topics.appendChild(buttonWrapper);
+
+    for (let i = 1; i < 4; i++) {
+      button[i] = document.createElement("a");
+      button[i].setAttribute("class", "button");
+      button[i].innerHTML = `Session ${i}`;
+      button[i].setAttribute("onClick", `loadTopic(${i})`);
+      button[i].setAttribute("data-active", false);
+      button[i].style.setProperty("display", "inline-block", "important");
+      buttonWrapper.appendChild(button[i]);
+    }
+
+    checkTopic(topicSel);
+    setTimeout(() => {
+      if (messages.length <= 1) {
+        TooltipWrapper.style.setProperty("display", "block", "important");
+      }
+    }, 50);
+  }
+
+  function checkTopic(topic) {
+    for (let i = 1; i < 3; i++) {
+      button[i].setAttribute("data-active", false);
+      button[i].style.setProperty("pointer-events", "auto", "important");
+    }
+    button[topic].setAttribute("data-active", true);
+    button[topic].style.setProperty("pointer-events", "none", "important");
+  }
+
+  window.CRISP_READY_TRIGGER = function () {
+
+    topicsPresent = document.getElementsByClassName("topicsWrapper")[0];
+    chatOpened = $crisp.is("chat:opened");
+
+    if (!topicsPresent && chatOpened) {
+      addTopics();
+    } else {
+      $crisp.push([
+        "on",
+        "chat:opened",
+        function () {
+          addTopics();
+          $crisp.push(["off", "chat:opened"]);
+        },
+      ]);
+    }
+  };
+</script>
